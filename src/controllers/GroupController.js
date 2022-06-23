@@ -17,11 +17,15 @@ class GroupController {
 
     const group = await Promise.all(groupPromise);
 
-    return res.json(group)
+    return res.status(200).json(group)
   }
 
   async show(req, res) {
     const groupId = req.params.id;
+
+    if (!Number(groupId)) {
+      return res.json({ error: 'Invalid Identifier.' })
+    }
 
     const rows = await runQuery('SELECT * FROM tbl_group WHERE userId = ? AND id = ?', [1, groupId])
 
@@ -42,11 +46,16 @@ class GroupController {
   }
 
   async create(req, res) {
-    const body = req.body;
+    const { userId } = req
+    const { name, cities } = req.body;
+
+    if (cities.find(item => !Number(item)) !== undefined) {
+      return res.json({ error: 'Invalid city identifier.' })
+    }
 
     await runQuery(
       'INSERT INTO tbl_group(name, userId, citiesId) VALUES (?,?,?)',
-      [body.name, 1, body.cities.toString()]
+      [name, userId, cities.toString()]
     )
 
     return res.status(201).send()
@@ -54,6 +63,10 @@ class GroupController {
 
   async remove(req, res) {
     const groupId = req.params.id;
+
+    if (!Number(groupId)) {
+      return res.json({ error: 'Invalid Identifier.' })
+    }
 
     await runQuery('DELETE FROM tbl_group WHERE id = ?', [groupId])
 
