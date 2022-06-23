@@ -1,14 +1,14 @@
 const express = require('express');
-const GroupControllers = require('./controllers/GroupControllers')
+
+const GroupController = require('./controllers/GroupController')
 
 const routes = express.Router();
 
-const groupControllers = new GroupControllers();
+const groupController = new GroupController();
 
-routes.get('/group', groupControllers.index);
-routes.post('/group', groupControllers.create);
-
-routes.get('/group/:id', groupControllers.show);
-routes.delete('/group/:id', groupControllers.remove);
+routes.get('/group', groupController.index);
+routes.post('/group', groupController.create);
+routes.get('/group/:id', groupController.show);
+routes.delete('/group/:id', groupController.remove);
 
 module.exports = routes;

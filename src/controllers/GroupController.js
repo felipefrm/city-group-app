@@ -1,6 +1,6 @@
 const runQuery = require("../database/runQuery");
 
-class GroupControllers {
+class GroupController {
   async index(req, res) {
     const rows = await runQuery('SELECT * FROM tbl_group WHERE userId = ?', [1])
 
@@ -61,4 +61,4 @@ class GroupControllers {
   }
 }
 
-module.exports = GroupControllers;
+module.exports = GroupController;
