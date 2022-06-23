@@ -16,14 +16,14 @@ class SessionController {
       var token = jwt.sign({ id }, process.env.SECRET, {
         expiresIn: '24h'
       });
-      res.status(200).json({ auth: true, token: token });
+      return res.status(200).json({ auth: true, token: token });
     }
 
-    res.status(401).json({error: 'Invalid Login'});
+    return res.status(401).json({error: 'Invalid Login'});
   }
 
   logout(req, res) {
-    res.json({ auth: false, token: null });
+    return res.json({ auth: false, token: null });
   }
 }
 

@@ -17,7 +17,7 @@ class GroupController {
 
     const group = await Promise.all(groupPromise);
 
-    res.json(group)
+    return res.json(group)
   }
 
   async show(req, res) {
@@ -33,7 +33,7 @@ class GroupController {
 
     const cities = await runQuery(`SELECT * FROM tbl_city WHERE id IN (${group.citiesId})`)
 
-    res.status(200).json({
+    return res.status(200).json({
       id: group.id,
       name: group.name,
       userId: group.userId,
@@ -49,7 +49,7 @@ class GroupController {
       [body.name, 1, body.cities.toString()]
     )
 
-    res.status(201).send()
+    return res.status(201).send()
   }
 
   async remove(req, res) {
@@ -57,7 +57,7 @@ class GroupController {
 
     await runQuery('DELETE FROM tbl_group WHERE id = ?', [groupId])
 
-    res.status(200).send()
+    return res.status(200).send()
   }
 }
 
