@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import { MultiSelect } from "./MultiSelect";
 
 import api from "../../services/api";
+import { useGroups } from "../../contexts/groups";
 
 export function NewGroupModal({ isOpen, closeModal }) {
+  const { refetch } = useGroups()
+
   const [cities, setCities] = useState([])
   const [groupName, setGroupName] = useState('')
   const [selectedCities, setSelectedCities] = useState([]);
@@ -33,10 +36,10 @@ export function NewGroupModal({ isOpen, closeModal }) {
 
     const citiesId = selectedCities.map(city => city.value);
 
-    await api.post('group', {
-      name: groupName,
-      cities: citiesId
-    })
+    await api.post('group', { name: groupName, cities: citiesId })
+      .then(response => refetch())
+      .catch(err => console.log(err.message))
+
 
     closeModal()
   }
