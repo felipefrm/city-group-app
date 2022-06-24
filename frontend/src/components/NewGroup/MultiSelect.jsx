@@ -1,13 +1,10 @@
 import Select from 'react-select'
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
-
-export function MultiSelect({ selectCities, setSelectedCities, ...rest }) {
-  console.log(selectCities)
+export function MultiSelect({ cities, selectCities, setSelectedCities, ...rest }) {
+  const options = cities.map(city => ({
+    value: city.id,
+    label: `${city.uf} - ${city.name}`
+  }))
 
   return (
     <Select
@@ -16,7 +13,7 @@ export function MultiSelect({ selectCities, setSelectedCities, ...rest }) {
       options={options}
       value={selectCities}
       onChange={setSelectedCities}
-      isOptionDisabled={() => selectCities.length >= 2}
+      isOptionDisabled={() => selectCities.length >= 5}
       {...rest}
     />
   )

@@ -1,9 +1,45 @@
 import { Modal, TextInput, Label, Button } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MultiSelect } from "./MultiSelect";
 
+import api from "../../services/api";
+
 export function NewGroupModal({ isOpen, closeModal }) {
+  const [cities, setCities] = useState([])
+  const [groupName, setGroupName] = useState('')
   const [selectedCities, setSelectedCities] = useState([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      api.get('city')
+        .then(response => setCities(response.data))
+        .catch(err => console.log(err.message))
+    }
+  }, [isOpen])
+
+  async function handleSubmit() {
+    if (groupName === '') {
+      console.log('nao pode ser vazio')
+      return
+    }
+
+    if (selectedCities.length === 0) {
+      console.log('nao pode ser vazio')
+    }
+
+    if (selectedCities.length > 5) {
+      console.log('nao pode ser maior que cinco')
+    }
+
+    const citiesId = selectedCities.map(city => city.value);
+
+    await api.post('group', {
+      name: groupName,
+      cities: citiesId
+    })
+
+    closeModal()
+  }
 
   return (
     <Modal
@@ -28,6 +64,8 @@ export function NewGroupModal({ isOpen, closeModal }) {
             <TextInput
               id="name"
               placeholder="Informe o nome do grupo"
+              value={groupName}
+              onChange={(event) => setGroupName(event.target.value)}
               required={true}
             />
           </div>
@@ -40,6 +78,7 @@ export function NewGroupModal({ isOpen, closeModal }) {
             </div>
             <MultiSelect
               id="cities"
+              cities={cities}
               selectCities={selectedCities}
               setSelectedCities={setSelectedCities}
             />
@@ -49,7 +88,7 @@ export function NewGroupModal({ isOpen, closeModal }) {
       <div className="flex gap-2 justify-end">
         <Modal.Footer>
           <Button onClick={closeModal} color="gray">Cancelar</Button>
-          <Button>Cadastrar</Button>
+          <Button onClick={handleSubmit}>Cadastrar</Button>
         </Modal.Footer>
       </div>
     </Modal>
