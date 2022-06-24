@@ -1,4 +1,4 @@
-import { Trash, Pencil } from "phosphor-react";
+import { HiOutlineTrash, HiOutlinePencilAlt } from 'react-icons/hi'
 
 export function ActionButton({ action, ...rest }) {
   return (
@@ -7,8 +7,8 @@ export function ActionButton({ action, ...rest }) {
       {...rest}
     >
       {action === 'delete'
-        ? <Trash size={24} color="red" />
-        : <Pencil size={24} color="gray" />}
+        ? <HiOutlineTrash size={24} color="red" />
+        : <HiOutlinePencilAlt size={24} color="gray" />}
     </button>
   )
 }
