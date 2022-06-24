@@ -1,4 +1,4 @@
-import { Plus } from "phosphor-react";
+import { HiPlus } from "react-icons/hi";
 
 export function AddNewGroupButton({ ...rest }) {
   return (
@@ -8,7 +8,7 @@ export function AddNewGroupButton({ ...rest }) {
       {...rest}
     >
       <div className="bg-green-600 p-1 rounded-md">
-        <Plus size={22} color="#fff" />
+        <HiPlus size={22} color="#fff" />
       </div>
       <span className="text-white font-bold">ADICIONAR NOVO GRUPO</span>
     </button>
