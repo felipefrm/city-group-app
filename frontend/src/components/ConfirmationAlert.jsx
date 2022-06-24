@@ -1,7 +1,7 @@
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
-export function ConfirmationAlert({ isOpen, closeModal }) {
+export function ConfirmationAlert({ isOpen, closeModal, handleDeleteGroup }) {
   return (
     <Modal
       show={isOpen}
@@ -19,7 +19,7 @@ export function ConfirmationAlert({ isOpen, closeModal }) {
           <div className="flex justify-center gap-4">
             <Button
               color="failure"
-              onClick={closeModal}
+              onClick={handleDeleteGroup}
             >
               Sim, tenho certeza
             </Button>

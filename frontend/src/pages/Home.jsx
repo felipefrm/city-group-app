@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { AddNewGroupButton } from "../components/AddNewGroupButton";
 import { NewGroupModal } from "../components/NewGroup/NewGroupModal";
 import { useState } from "react";
+import { GroupsProvider } from "../contexts/groups";
 
 export function Home() {
   const [isNewGroupModalOpen, setIsNewGroupModalOpen] = useState(false)
@@ -17,7 +18,7 @@ export function Home() {
   }
 
   return (
-    <>
+    <GroupsProvider>
       <Header />
       <main className="flex flex-col gap-2 max-w-[1440px] m-auto -mt-32">
         <AddNewGroupButton onClick={handleOpenNewGroupModal} />
@@ -29,6 +30,6 @@ export function Home() {
         isOpen={isNewGroupModalOpen}
         closeModal={handleCloseNewGroupModal}
       />
-    </>
+    </GroupsProvider>
   )
 }
