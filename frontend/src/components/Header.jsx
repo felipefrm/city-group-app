@@ -1,9 +1,8 @@
 import logoImg from '../assets/images/logo.png'
+import { useAuth } from '../contexts/auth'
 
 export function Header() {
-  const handleSignOut = () => {
-    console.log('signout')
-  } 
+  const { signOut } = useAuth()
 
   return (
     <header className="bg-slate-300 h-64">
@@ -12,9 +11,9 @@ export function Header() {
         <div className="flex mr-6 items-center">
           <div className="flex flex-col mr-2">
             <span className="font-bold">João</span>
-            <button 
+            <button
               type="button"
-              onClick={handleSignOut}
+              onClick={signOut}
               className="text-brand-green hover:underline hover:decoration-brand-green"
             >
               Sair
