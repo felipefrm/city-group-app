@@ -61,6 +61,23 @@ class GroupController {
     return res.status(201).send()
   }
 
+  async update(req, res) {
+    const { userId } = req
+    const { id } = req.params
+    const { name, cities } = req.body;
+
+    if (cities.find(item => !Number(item)) !== undefined) {
+      return res.json({ error: 'Invalid city identifier.' })
+    }
+
+    await runQuery(
+      'UPDATE tbl_group SET name = ?, citiesId = ? WHERE id = ? AND userId = ?',
+      [name, cities.toString(), id, userId]
+    )
+
+    return res.status(201).send()
+  }
+
   async remove(req, res) {
     const groupId = req.params.id;
 

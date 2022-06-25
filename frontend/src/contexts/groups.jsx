@@ -1,12 +1,11 @@
 import { createContext, useState, useEffect, useContext } from 'react'
+import toast from 'react-hot-toast'
 import api from '../services/api'
 
 const GroupsContext = createContext({})
 
 export const GroupsProvider = ({ children }) => {
   const [groups, setGroups] = useState([])
-
-  console.log(groups)
 
   useEffect(() => {
     fetch()
@@ -15,7 +14,7 @@ export const GroupsProvider = ({ children }) => {
   async function fetch() {
     api.get('group')
       .then(response => setGroups(response.data))
-      .catch(err => console.log(err.message))
+      .catch(err => toast.error('Falha ao carregar grupos.'))
   }
 
   return (

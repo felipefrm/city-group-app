@@ -2,14 +2,17 @@ import { useState } from "react";
 import toast from 'react-hot-toast';
 
 import { DeleteGroupModal } from "../../Modal/DeleteGroupModal";
+import { EditGroupModal } from "../../Modal/EditGroupModal";
 import { ActionButton } from "./ActionButton";
 import { CityItem } from "./CityItem";
+
 import { useGroups } from "../../../contexts/groups";
 import api from "../../../services/api";
 
 export function GroupItem({ group }) {
-  const {groups, setGroups} = useGroups()
+  const { groups, setGroups } = useGroups()
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
   function handleOpenDeleteAlert() {
     setIsDeleteAlertOpen(true)
@@ -28,6 +31,14 @@ export function GroupItem({ group }) {
     toast.success('Grupo removido com sucesso!')
   }
 
+  async function handleOpenEditModal() {
+    setIsEditModalOpen(true)
+  }
+
+  function handleCloseEditModal() {
+    setIsEditModalOpen(false)
+  }
+
   return (
     <div className="bg-slate-100 p-6 flex items-center justify-between shadow-sm rounded-md flex-wrap">
       <div className="flex flex-col">
@@ -39,7 +50,7 @@ export function GroupItem({ group }) {
         </div>
       </div>
       <div className="flex justify-end gap-2">
-        <ActionButton action="edit" onClick={() => { }} />
+        <ActionButton action="edit" onClick={handleOpenEditModal} />
         <ActionButton action="delete" onClick={handleOpenDeleteAlert} />
       </div>
 
@@ -47,6 +58,12 @@ export function GroupItem({ group }) {
         isOpen={isDeleteAlertOpen}
         closeModal={handleCloseDeleteAlert}
         handleDeleteGroup={handleDeleteGroup}
+      />
+
+      <EditGroupModal
+        isOpen={isEditModalOpen}
+        closeModal={handleCloseEditModal}
+        group={group}
       />
     </div>
   )

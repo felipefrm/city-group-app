@@ -18,6 +18,7 @@ routes.delete('/logout', sessionController.logout);
 routes.get('/group', verifyToken, groupController.index);
 routes.post('/group', verifyToken, groupController.create);
 routes.get('/group/:id', verifyToken, groupController.show);
+routes.put('/group/:id', verifyToken, groupController.update);
 routes.delete('/group/:id', verifyToken, groupController.remove);
 
 routes.get('/city', verifyToken, cityController.index);
