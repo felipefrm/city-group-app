@@ -28,7 +28,7 @@ class SessionController {
       });
     }
 
-    return res.status(401).json({ error: 'Invalid Login' });
+    return res.json({ error: 'Invalid Login' });
   }
 
   logout(req, res) {
