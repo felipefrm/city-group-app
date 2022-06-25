@@ -1,5 +1,7 @@
-import logoImg from '../assets/images/logo.png'
 import { useAuth } from '../contexts/auth'
+
+import logoImg from '../assets/images/logo.png'
+import userImg from '../assets/images/default-user-image.png'
 
 export function Header() {
   const { signOut } = useAuth()
@@ -20,9 +22,9 @@ export function Header() {
             </button>
           </div>
           <img
-            src="https://github.com/felipefrm.png"
+            src={userImg}
             alt="Avatar do Usuário"
-            className="w-16 rounded-full border-brand-orange border-2"
+            className="w-16 rounded-full border-brand-orange border-4"
           />
         </div>
       </div>
