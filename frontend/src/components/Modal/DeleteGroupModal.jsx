@@ -1,7 +1,7 @@
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
-export function ConfirmationAlert({ isOpen, closeModal, handleDeleteGroup }) {
+export function DeleteGroupModal({ isOpen, closeModal, handleDeleteGroup }) {
   return (
     <Modal
       show={isOpen}

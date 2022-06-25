@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { ConfirmationAlert } from "../ConfirmationAlert";
+import { DeleteGroupModal } from "../../Modal/DeleteGroupModal";
 import { ActionButton } from "./ActionButton";
 import { CityItem } from "./CityItem";
 
-import { useGroups } from "../../contexts/groups";
-import api from "../../services/api";
+import { useGroups } from "../../../contexts/groups";
+import api from "../../../services/api";
 
 export function GroupItem({ group }) {
   const {groups, setGroups} = useGroups()
@@ -42,7 +42,7 @@ export function GroupItem({ group }) {
         <ActionButton action="delete" onClick={handleOpenDeleteAlert} />
       </div>
 
-      <ConfirmationAlert
+      <DeleteGroupModal
         isOpen={isDeleteAlertOpen}
         closeModal={handleCloseDeleteAlert}
         handleDeleteGroup={handleDeleteGroup}

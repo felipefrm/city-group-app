@@ -1,6 +1,6 @@
 import { HiPlus } from "react-icons/hi";
 
-export function AddNewGroupButton({ ...rest }) {
+export function AddGroupButton({ ...rest }) {
   return (
     <button
       type="button"

@@ -5,7 +5,7 @@ import { MultiSelect } from "./MultiSelect";
 import api from "../../services/api";
 import { useGroups } from "../../contexts/groups";
 
-export function NewGroupModal({ isOpen, closeModal }) {
+export function AddGroupModal({ isOpen, closeModal }) {
   const { refetch } = useGroups()
 
   const [cities, setCities] = useState([])
@@ -28,10 +28,12 @@ export function NewGroupModal({ isOpen, closeModal }) {
 
     if (selectedCities.length === 0) {
       console.log('nao pode ser vazio')
+      return
     }
 
     if (selectedCities.length > 5) {
       console.log('nao pode ser maior que cinco')
+      return
     }
 
     const citiesId = selectedCities.map(city => city.value);
