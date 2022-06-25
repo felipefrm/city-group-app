@@ -9,7 +9,7 @@ import { useAuth } from "../contexts/auth";
 import logoImg from '../assets/images/logo.png'
 
 export function SignIn() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
   const { signIn, signed } = useAuth()
 
   const navigate = useNavigate();
@@ -39,8 +39,8 @@ export function SignIn() {
 
   return (
     <div className="bg-slate-300 h-screen flex items-center justify-center">
-      <div className="bg-slate-100 p-10 rounded-lg">
-        <img src={logoImg} alt="Economapas" className="max-w-md" />
+      <div className="bg-slate-100 p-10 rounded-lg m-4">
+        <img src={logoImg} alt="Economapas" className="max-w-md w-full" />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-2 mt-6 items-center"

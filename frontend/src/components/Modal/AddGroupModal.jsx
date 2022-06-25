@@ -97,7 +97,7 @@ export function AddGroupModal({ isOpen, closeModal }) {
       <div className="flex gap-2 justify-end">
         <Modal.Footer>
           <Button onClick={closeModal} color="gray">Cancelar</Button>
-          <Button onClick={handleSubmit}>Cadastrar</Button>
+          <Button onClick={handleSubmit} color="warning">Cadastrar</Button>
         </Modal.Footer>
       </div>
     </Modal>

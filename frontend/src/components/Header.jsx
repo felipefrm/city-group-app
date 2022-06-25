@@ -13,7 +13,7 @@ export function Header() {
     <header className="bg-slate-300 h-64">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between">
         <Link to="/">
-          <img src={logoImg} alt="Economapas" className="max-w-xs py-2" />
+          <img src={logoImg} alt="Economapas" className="max-w-xs py-2 w-full" />
         </Link>
         <div className="flex mr-6 items-center">
           <div className="flex flex-col mr-2">

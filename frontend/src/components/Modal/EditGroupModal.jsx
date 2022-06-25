@@ -93,7 +93,7 @@ export function EditGroupModal({ isOpen, closeModal, group }) {
       <div className="flex gap-2 justify-end">
         <Modal.Footer>
           <Button onClick={closeModal} color="gray">Cancelar</Button>
-          <Button onClick={handleSubmit}>Editar</Button>
+          <Button onClick={handleSubmit} color="warning">Editar</Button>
         </Modal.Footer>
       </div>
     </Modal>
