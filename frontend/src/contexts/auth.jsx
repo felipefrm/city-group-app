@@ -28,12 +28,12 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('@Auth:user', JSON.stringify(response.data.user))
         localStorage.setItem('@Auth:token', response.data.auth.token)
 
-        callback();
+        callback('Autenticado com sucesso!', undefined);
       } else {
-        console.log(response.data.error)
+        callback(undefined, 'Verifique suas credenciais.');
       }
     } catch (err) {
-      console.log(err)
+      callback(undefined, 'Verifique suas credenciais.');
     }
   }
 

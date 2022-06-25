@@ -1,13 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { TextInput } from 'flowbite-react'
+import toast from "react-hot-toast";
 
 import { useAuth } from "../contexts/auth";
 
 import logoImg from '../assets/images/logo.png'
 
 export function SignIn() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { signIn, signed } = useAuth()
 
   const navigate = useNavigate();
@@ -24,7 +26,15 @@ export function SignIn() {
       password: data.password
     }
 
-    signIn(credentials, () => navigate(from, { replace: true }))
+    signIn(credentials, (success, err) => {
+      if (err) {
+        toast.error(err)
+      }
+      else {
+        toast.success(success)
+        navigate(from, { replace: true })
+      }
+    })
   };
 
   return (
@@ -35,20 +45,22 @@ export function SignIn() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-2 mt-6 items-center"
         >
-          <input
-            type="text"
-            name="username"
-            placeholder="Usuário"
-            className="w-[70%] h-10 pl-6"
-            {...register('username', { required: true })}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Senha"
-            className="w-[70%] h-10 pl-6"
-            {...register('password', { required: true })}
-          />
+          <div className="flex flex-col gap-2 w-[70%]">
+            <TextInput
+              id="username"
+              type="text"
+              placeholder="Usuário"
+              required={true}
+              {...register('username', { required: true })}
+            />
+            <TextInput
+              id="password"
+              type="password"
+              placeholder="Senha"
+              required={true}
+              {...register('password', { required: true })}
+            />
+          </div>
           <button
             type="submit"
             className="bg-brand-blue text-white font-bold mt-4 px-6 py-2 rounded-md hover:opacity-60 transition-opacity"
