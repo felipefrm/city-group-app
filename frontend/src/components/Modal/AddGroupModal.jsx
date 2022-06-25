@@ -1,5 +1,7 @@
 import { Modal, TextInput, Label, Button } from "flowbite-react";
 import { useEffect, useState } from "react";
+import toast from 'react-hot-toast';
+
 import { MultiSelect } from "./MultiSelect";
 
 import api from "../../services/api";
@@ -22,28 +24,37 @@ export function AddGroupModal({ isOpen, closeModal }) {
 
   async function handleSubmit() {
     if (groupName === '') {
-      console.log('nao pode ser vazio')
+      toast.error('Informe o nome do grupo.')
       return
     }
 
     if (selectedCities.length === 0) {
-      console.log('nao pode ser vazio')
+      toast.error('Nenhuma cidade selecionada.')
       return
     }
 
     if (selectedCities.length > 5) {
-      console.log('nao pode ser maior que cinco')
+      toast.error('Limite de 5 cidades excedido.')
       return
     }
 
     const citiesId = selectedCities.map(city => city.value);
 
     await api.post('group', { name: groupName, cities: citiesId })
-      .then(response => refetch())
-      .catch(err => console.log(err.message))
+      .then(response => {
+        refetch()
+        toast.success('Grupo cadastrado com sucesso!')
+      })
+      .catch(err => toast.error('Houve uma falha ao cadastrar o grupo!'))
 
 
+    resetForm()
     closeModal()
+  }
+
+  function resetForm() {
+    setGroupName('');
+    setSelectedCities([]);
   }
 
   return (

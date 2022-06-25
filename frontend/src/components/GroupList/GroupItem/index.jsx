@@ -1,9 +1,9 @@
 import { useState } from "react";
+import toast from 'react-hot-toast';
 
 import { DeleteGroupModal } from "../../Modal/DeleteGroupModal";
 import { ActionButton } from "./ActionButton";
 import { CityItem } from "./CityItem";
-
 import { useGroups } from "../../../contexts/groups";
 import api from "../../../services/api";
 
@@ -25,6 +25,7 @@ export function GroupItem({ group }) {
     setGroups(groups.filter(g => g.id !== group.id))
 
     handleCloseDeleteAlert()
+    toast.success('Grupo removido com sucesso!')
   }
 
   return (
