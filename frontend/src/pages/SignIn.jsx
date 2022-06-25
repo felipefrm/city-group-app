@@ -1,17 +1,30 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+
 import { useAuth } from "../contexts/auth";
 
 import logoImg from '../assets/images/logo.png'
 
 export function SignIn() {
   const { register, handleSubmit } = useForm();
-  const { signIn } = useAuth()
+  const { signIn, signed } = useAuth()
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (signed) navigate("/")
+  }, [signed])
 
   const onSubmit = async (data) => {
-    signIn({ 
-      username: data.username, 
-      password: data.password 
-    })
+    const credentials = {
+      username: data.username,
+      password: data.password
+    }
+
+    signIn(credentials, () => navigate(from, { replace: true }))
   };
 
   return (

@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
-  async function signIn(credentials) {
+  async function signIn(credentials, callback) {
     try {
       const response = await api.post('login', credentials)
 
@@ -27,6 +27,8 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.setItem('@Auth:user', JSON.stringify(response.data.user))
         localStorage.setItem('@Auth:token', response.data.auth.token)
+
+        callback();
       } else {
         console.log(response.data.error)
       }
@@ -35,13 +37,15 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  function signOut() {
+  function signOut(callback) {
     setUser(null)
 
     localStorage.removeItem("@Auth:user");
     localStorage.removeItem("@Auth:token");
 
     api.delete("logout")
+
+    callback()
   }
 
   return (

@@ -2,9 +2,11 @@ import { useAuth } from '../contexts/auth'
 
 import logoImg from '../assets/images/logo.png'
 import userImg from '../assets/images/default-user-image.png'
+import { useNavigate } from 'react-router-dom';
 
 export function Header() {
   const { signOut } = useAuth()
+  let navigate = useNavigate();
 
   return (
     <header className="bg-slate-300 h-64">
@@ -15,7 +17,7 @@ export function Header() {
             <span className="font-bold">João</span>
             <button
               type="button"
-              onClick={signOut}
+              onClick={() => signOut(() => navigate("/login"))}
               className="text-brand-green hover:underline hover:decoration-brand-green"
             >
               Sair
