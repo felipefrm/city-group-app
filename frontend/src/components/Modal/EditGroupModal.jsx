@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { Modal, TextInput, Label, Button } from "flowbite-react";
+import { Modal, Button } from "flowbite-react";
 import toast from "react-hot-toast";
 
-import { MultiSelect } from "./MultiSelect";
-
+import { FormGroup } from "./FormGroup";
 import api from "../../services/api";
 import { useGroups } from "../../contexts/groups";
-import { useCity } from "../hooks/useCity";
 import { convertCityToSelectOption } from "../../utils";
 
 export function EditGroupModal({ isOpen, closeModal, group }) {
   const { refetch } = useGroups()
-  const cities = useCity(isOpen)
 
   const [groupName, setGroupName] = useState(group.name)
   const [selectedCities, setSelectedCities] = useState(
@@ -55,40 +52,13 @@ export function EditGroupModal({ isOpen, closeModal, group }) {
     >
       <Modal.Header />
       <Modal.Body>
-        <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
-          <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-            Editar grupo
-          </h3>
-          <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="name"
-                value="Nome"
-              />
-            </div>
-            <TextInput
-              id="name"
-              placeholder="Informe o nome do grupo"
-              value={groupName}
-              onChange={(event) => setGroupName(event.target.value)}
-              required={true}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="cities"
-                value="Cidades"
-              />
-            </div>
-            <MultiSelect
-              id="cities"
-              cities={cities}
-              selectCities={selectedCities}
-              setSelectedCities={setSelectedCities}
-            />
-          </div>
-        </div>
+        <FormGroup 
+          action="edit" 
+          groupName={groupName}
+          setGroupName={setGroupName}
+          selectedCities={selectedCities}
+          setSelectedCities={setSelectedCities}
+        />
       </Modal.Body>
       <div className="flex gap-2 justify-end">
         <Modal.Footer>
