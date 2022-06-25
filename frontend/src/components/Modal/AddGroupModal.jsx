@@ -1,26 +1,19 @@
 import { Modal, TextInput, Label, Button } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from 'react-hot-toast';
 
 import { MultiSelect } from "./MultiSelect";
 
 import api from "../../services/api";
 import { useGroups } from "../../contexts/groups";
+import { useCity } from "../hooks/useCity";
 
 export function AddGroupModal({ isOpen, closeModal }) {
   const { refetch } = useGroups()
+  const cities = useCity(isOpen)
 
-  const [cities, setCities] = useState([])
   const [groupName, setGroupName] = useState('')
   const [selectedCities, setSelectedCities] = useState([]);
-
-  useEffect(() => {
-    if (isOpen) {
-      api.get('city')
-        .then(response => setCities(response.data))
-        .catch(err => console.log(err.message))
-    }
-  }, [isOpen])
 
   async function handleSubmit() {
     if (groupName === '') {
