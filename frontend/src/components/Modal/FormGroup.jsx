@@ -1,6 +1,6 @@
 import { Label, TextInput } from "flowbite-react";
 import { MultiSelect } from "./MultiSelect";
-import { useCity } from "../hooks/useCity";
+import { useCity } from "../../hooks/useCity";
 
 export function FormGroup({
   action,
@@ -35,7 +35,7 @@ export function FormGroup({
         <div className="mb-2 block">
           <Label
             htmlFor="cities"
-            value="Cidades"
+            value={`Cidades (Restam ${5-selectedCities.length} cidades)`}
           />
         </div>
         <MultiSelect
