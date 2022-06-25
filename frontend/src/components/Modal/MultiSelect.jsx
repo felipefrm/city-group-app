@@ -1,10 +1,8 @@
 import Select from 'react-select'
+import { convertCityToSelectOption } from '../../utils'
 
 export function MultiSelect({ cities, selectCities, setSelectedCities, ...rest }) {
-  const options = cities.map(city => ({
-    value: city.id,
-    label: `${city.uf} - ${city.name}`
-  }))
+  const options = cities.map(convertCityToSelectOption)
 
   return (
     <Select
