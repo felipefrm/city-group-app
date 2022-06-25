@@ -1,4 +1,4 @@
-require("dotenv-safe").config();
+require("dotenv").config();
 const jwt = require('jsonwebtoken');
 const runQuery = require("../database/runQuery");
 
