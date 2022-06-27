@@ -2,7 +2,7 @@ const runQuery = require("../database/runQuery");
 
 class GroupController {
   async index(req, res) {
-    const rows = await runQuery('SELECT * FROM tbl_group WHERE userId = ?', [1])
+    const rows = await runQuery('SELECT * FROM tbl_group WHERE userId = ?', [req.userId])
 
     const groupPromise = rows.map(async row => {
       let cities = await runQuery(`SELECT * FROM tbl_city WHERE id IN (${row.citiesId})`)
@@ -22,12 +22,11 @@ class GroupController {
 
   async show(req, res) {
     const groupId = req.params.id;
-
     if (!Number(groupId)) {
       return res.json({ error: 'Invalid Identifier.' })
     }
 
-    const rows = await runQuery('SELECT * FROM tbl_group WHERE userId = ? AND id = ?', [1, groupId])
+    const rows = await runQuery('SELECT * FROM tbl_group WHERE userId = ? AND id = ?', [req.userId, groupId])
 
     if (!rows.length) {
       return res.json({})
